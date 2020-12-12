@@ -33,6 +33,26 @@ namespace MusicCollaboration.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Birth Date")]
+            [DataType(DataType.Date)]
+            public DateTime DOB { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Bio")]
+            public string Bio { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -47,6 +67,10 @@ namespace MusicCollaboration.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DOB = user.DOB,
+                Bio = user.Bio,
                 PhoneNumber = phoneNumber
             };
         }
@@ -87,6 +111,28 @@ namespace MusicCollaboration.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+
+            if (Input.DOB != user.DOB)
+            {
+                user.DOB = Input.DOB;
+            }
+
+            if(Input.Bio != user.Bio)
+            {
+                user.Bio = Input.Bio;
+            }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

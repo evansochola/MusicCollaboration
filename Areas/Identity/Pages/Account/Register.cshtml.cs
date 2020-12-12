@@ -47,6 +47,26 @@ namespace MusicCollaboration.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Birth Date")]
+            [DataType(DataType.Date)]
+            public DateTime DOB { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Bio")]
+            public string Bio { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -75,7 +95,14 @@ namespace MusicCollaboration.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new MusicCollaborationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new MusicCollaborationUser {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    DOB = Input.DOB,
+                    Bio = Input.Bio,
+                    UserName = Input.Email, 
+                    Email = Input.Email
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
