@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MusicCollaboration.Areas.Identity.Data;
+using MusicCollaboration.Models;
 
 namespace MusicCollaboration.Data
 {
-    public class MusicCollaborationContext : IdentityDbContext<MusicCollaborationUser>
+    public class MusicCollaborationContext: IdentityDbContext<MusicCollaborationUser>
     {
         public MusicCollaborationContext(DbContextOptions<MusicCollaborationContext> options)
-            : base(options)
+           : base(options)
         {
         }
 
@@ -23,5 +24,7 @@ namespace MusicCollaboration.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Collaboration> Collaboration { get; set; }
     }
 }

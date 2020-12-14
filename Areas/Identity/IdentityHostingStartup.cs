@@ -16,12 +16,7 @@ namespace MusicCollaboration.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<MusicCollaborationContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("MusicCollaborationContextConnection")));
-
-                services.AddDefaultIdentity<MusicCollaborationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<MusicCollaborationContext>();
+                
 
                 services.Configure<IdentityOptions>(options =>
                 {

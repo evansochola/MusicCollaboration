@@ -10,8 +10,8 @@ using MusicCollaboration.Data;
 namespace MusicCollaboration.Migrations
 {
     [DbContext(typeof(MusicCollaborationContext))]
-    [Migration("20201211110817_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20201212124942_CustomUserData")]
+    partial class CustomUserData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,9 +164,15 @@ namespace MusicCollaboration.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
@@ -174,6 +180,12 @@ namespace MusicCollaboration.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

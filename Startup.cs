@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MusicCollaboration.Areas.Identity.Data;
+using MusicCollaboration.Data;
 
 namespace MusicCollaboration
 {
@@ -23,6 +26,13 @@ namespace MusicCollaboration
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<MusicCollaborationContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("MusicCollaborationContextConnection")));
+
+            services.AddDefaultIdentity<MusicCollaborationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<MusicCollaborationContext>();
             services.AddRazorPages();
         }
 
