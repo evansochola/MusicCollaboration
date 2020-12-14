@@ -10,6 +10,7 @@ namespace MusicCollaboration.Models
     {
         Pop,
         Jazz,
+        Electronic,
         HipHop,
         Classical,
         Alternative
