@@ -8,6 +8,7 @@ namespace MusicCollaboration.Models
 {
     public enum CollaborationGenre
     {
+        None,
         Pop,
         Jazz,
         Electronic,
