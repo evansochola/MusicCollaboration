@@ -6,7 +6,13 @@
     <title>@ViewData["Title"] - MusicCollaboration</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/music.css"/>
+    <link rel="stylesheet" href="~/css/music.css" />
+
+    <!-- Join-->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/join.css" />
 </head>
 <body>
     <header>
@@ -22,7 +28,7 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">My Studio</a>
+                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">My Studio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Collaborations" asp-action="Index">Collaborations</a>

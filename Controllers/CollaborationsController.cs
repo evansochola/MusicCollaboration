@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using MusicCollaboration.Models;
 
 namespace MusicCollaboration.Controllers
 {
+    [Authorize]
     public class CollaborationsController : Controller
     {
         private readonly MusicCollaborationContext _context;
@@ -45,7 +47,22 @@ namespace MusicCollaboration.Controllers
             return View(await collaborations.ToListAsync());
             //return View(await _context.Collaboration.ToListAsync());
         }
-      
+        public async Task<IActionResult> Join(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var collaboration = await _context.Collaboration
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (collaboration == null)
+            {
+                return NotFound();
+            }
+
+            return View(collaboration);
+        }
 
 
         // GET: Collaborations/Details/5

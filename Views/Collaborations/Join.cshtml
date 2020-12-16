@@ -1,0 +1,46 @@
+﻿@model MusicCollaboration.Models.Collaboration
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <div class="row">
+            <div class="side-menu col-md-2">
+                <center>
+                    <div class="logo">
+                        <p> @Html.DisplayFor(model => model.Title)</p>
+                    </div>
+                    <p class="title"> @Html.DisplayFor(model => model.Title)</p>
+                    <ui>
+                        <p>Description</p>
+                        <li>@Html.DisplayFor(model => model.Description)</li>
+
+                        <p>BPM</p>
+                        <li>@Html.DisplayFor(model => model.Bpm) bpm</li>
+                        <li><i class="fas fa-stroopwafel"></i>Message</li>
+                        <li><i class="fas fa-stroopwafel"></i>Members</li>
+                        <li><i class="fas fa-stroopwafel"></i>Upload Files</li>
+
+                    </ui>
+                </center>
+            </div>
+            <div class="main-area col-md-10">
+                <div class="row top">
+                    <div class="col-md-12">
+                        <div class="gener">
+                            <span>@Html.DisplayFor(model => model.Genre)</span> <span>@Html.DisplayFor(model => model.Type)</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row bottom">
+
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
