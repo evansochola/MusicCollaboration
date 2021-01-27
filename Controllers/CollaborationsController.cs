@@ -8,20 +8,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicCollaboration.Data;
 using MusicCollaboration.Models;
+using MusicCollaboration.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace MusicCollaboration.Controllers
 {
+    //You need to be signed in to access this controller
     [Authorize]
     public class CollaborationsController : Controller
     {
         private readonly MusicCollaborationContext _context;
+        private UserManager<MusicCollaborationUser> _userManager;
 
-        public CollaborationsController(MusicCollaborationContext context)
+        public CollaborationsController(MusicCollaborationContext context , UserManager<MusicCollaborationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-     
 
       
         // GET: Collaborations
@@ -98,6 +102,9 @@ namespace MusicCollaboration.Controllers
         {
             if (ModelState.IsValid)
             {
+                var applicationUser = await _userManager.GetUserAsync(User);
+                collaboration.Owner = applicationUser;
+
                 _context.Add(collaboration);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
