@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,10 @@ namespace MusicCollaboration
                         Configuration.GetConnectionString("MusicCollaborationContextConnection")));
 
             services.AddDefaultIdentity<MusicCollaborationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<MusicCollaborationContext>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MusicCollaborationContext>();
+              
             services.AddRazorPages();
         }
 
