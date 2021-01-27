@@ -9,12 +9,14 @@ namespace MusicCollaboration.Models
 {
     public class CollaborationMember
     {
-        public MusicCollaborationUser UserID { get; set; }
+        public string UserID { get; set; }
+        public MusicCollaborationUser User { get; set; }
+        public int CollaborationID { get; set; }
         public Collaboration Collaboration { get; set; }
-        public UserRole Role { get; set; }
+        public CollaborationUserRole Role { get; set; }
     }
 
-    public enum UserRole
+    public enum CollaborationUserRole
     {
         ProjectOwner,
         Vocalist,

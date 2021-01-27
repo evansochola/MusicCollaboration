@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicCollaboration.Data;
 
 namespace MusicCollaboration.Migrations
 {
     [DbContext(typeof(MusicCollaborationContext))]
-    partial class MusicCollaborationContextModelSnapshot : ModelSnapshot
+    [Migration("20210127221129_CollaborationMembers")]
+    partial class CollaborationMembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +254,7 @@ namespace MusicCollaboration.Migrations
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
-                    b.Property<string>("OwnerID")
+                    b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SongKey")
@@ -266,7 +268,7 @@ namespace MusicCollaboration.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OwnerID");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Collaboration");
                 });
@@ -351,7 +353,7 @@ namespace MusicCollaboration.Migrations
                 {
                     b.HasOne("MusicCollaboration.Areas.Identity.Data.MusicCollaborationUser", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerID");
+                        .HasForeignKey("OwnerId");
                 });
 
             modelBuilder.Entity("MusicCollaboration.Models.CollaborationMember", b =>

@@ -23,6 +23,10 @@ namespace MusicCollaboration.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            //setting a composite key to the relation CollaborationMembers
+            builder.Entity<CollaborationMember>()
+                .HasKey(x => new { x.CollaborationID, x.UserID });
         }
 
         public DbSet<Collaboration> Collaboration { get; set; }

@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MusicCollaboration.Areas.Identity.Data;
+using MusicCollaboration.Authorization;
 using MusicCollaboration.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MusicCollaboration
 {
@@ -38,6 +40,20 @@ namespace MusicCollaboration
                 .AddEntityFrameworkStores<MusicCollaborationContext>();
               
             services.AddRazorPages();
+
+            //Authorization Handlers
+                services.AddScoped<IAuthorizationHandler,
+                    ProjectIsOwnerAuthorizationHandler>();
+            //singletons because they don't use EF and all the information 
+            //needed is in the Context parameter of the HandleRequirementAsync method
+
+            /*services.AddSingleton<IAuthorizationHandler,
+                ProjectAdministratorsAuthorizationHandler>();
+            */
+
+                services.AddTransient<IAuthorizationHandler,
+                    ProjectAdministratorsAuthorizationHandler>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

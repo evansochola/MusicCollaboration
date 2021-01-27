@@ -1,3 +1,6 @@
 ﻿@using MusicCollaboration
 @using MusicCollaboration.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using MusicCollaboration.Authorization;
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService

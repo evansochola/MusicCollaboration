@@ -10,6 +10,8 @@ using MusicCollaboration.Data;
 using MusicCollaboration.Models;
 using MusicCollaboration.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using MusicCollaboration.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MusicCollaboration.Controllers
 {
@@ -19,11 +21,15 @@ namespace MusicCollaboration.Controllers
     {
         private readonly MusicCollaborationContext _context;
         private UserManager<MusicCollaborationUser> _userManager;
+        private IAuthorizationService _authorizationService;
 
-        public CollaborationsController(MusicCollaborationContext context , UserManager<MusicCollaborationUser> userManager)
+        public CollaborationsController(MusicCollaborationContext context , 
+            UserManager<MusicCollaborationUser> userManager,
+            IAuthorizationService authorizationService)
         {
             _context = context;
             _userManager = userManager;
+            _authorizationService = authorizationService;
         }
 
 
@@ -125,6 +131,15 @@ namespace MusicCollaboration.Controllers
             {
                 return NotFound();
             }
+            var isAuthorized = await _authorizationService.AuthorizeAsync(
+                User, collaboration,
+                ProjectOperations.Update);
+
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             return View(collaboration);
         }
 
@@ -144,6 +159,14 @@ namespace MusicCollaboration.Controllers
             {
                 try
                 {
+                    var isAuthorized = await _authorizationService.AuthorizeAsync(
+                                                 User, collaboration,
+                                                 ProjectOperations.Update);
+                    if (!isAuthorized.Succeeded)
+                    {
+                        return Forbid();
+                    }
+
                     _context.Update(collaboration);
                     await _context.SaveChangesAsync();
                 }
@@ -177,6 +200,13 @@ namespace MusicCollaboration.Controllers
             {
                 return NotFound();
             }
+            var isAuthorized = await _authorizationService.AuthorizeAsync(
+                                                 User, collaboration,
+                                                 ProjectOperations.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
 
             return View(collaboration);
         }
@@ -187,6 +217,13 @@ namespace MusicCollaboration.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var collaboration = await _context.Collaboration.FindAsync(id);
+            var isAuthorized = await _authorizationService.AuthorizeAsync(
+                                                User, collaboration,
+                                                ProjectOperations.Delete);
+            if (!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
             _context.Collaboration.Remove(collaboration);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
