@@ -26,5 +26,6 @@ namespace MusicCollaboration.Data
         }
 
         public DbSet<Collaboration> Collaboration { get; set; }
+        public DbSet<CollaborationMember> CollaborationMembers { get; set; }
     }
 }
