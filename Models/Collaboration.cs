@@ -18,6 +18,7 @@ namespace MusicCollaboration.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public MusicCollaborationUser Owner { get; set; }
         public ICollection<MusicCollaborationUser> Participants { get; set; }
         public int Bpm { get; set; }
         public string SongKey { get; set; }
